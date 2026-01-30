@@ -1,0 +1,19 @@
+﻿@using BookstoreWebApp.Models.User;
+@model UserLoginViewModel
+
+<h1>Log in</h1>
+<form asp-action="Login" method="post">
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">Password</label>
+        <input asp-for="Password" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="RememberMe" class="form-check-label">Remember me?</label>
+        <input asp-for="RememberMe" class="form-check-input" />
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+</form>

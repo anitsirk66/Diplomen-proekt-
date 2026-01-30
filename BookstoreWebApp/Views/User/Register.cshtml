@@ -1,0 +1,32 @@
+﻿@using BookstoreWebApp.Models.User;
+@model UserRegisterViewModel
+
+<div class="text-center mb-4">
+    
+</div>
+<h1>Register</h1>
+<form asp-action="Register" method="post">
+    <div class="mb-3">
+        <label asp-for="UserName" class="form-label">Username</label>
+        <input asp-for="UserName" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">Password</label>
+        <input asp-for="Password" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ConfirmPassword" class="form-label">ConfirmPassword</label>
+        <input asp-for="ConfirmPassword" class="form-control" required />
+    </div>
+    <label asp-for="Role">Register as</label>
+    <select class="form-control" asp-for="Role">
+        <option value="">Select Role</option>
+        <option value="Admin">Adminstrator</option>
+        <option value="Client">User</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>

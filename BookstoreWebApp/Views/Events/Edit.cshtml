@@ -1,0 +1,21 @@
+﻿@using BookstoreWebApp.Models.Events;
+@model EventsIndexViewModel
+
+<h1 style="font-family: Arial;">Change event details *only possible for administrator*</h1>
+<form asp-action="Edit" method="post">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Event name</label>
+        <input asp-for="Name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="DateAndTime" class="form-label">Date and time</label>
+        <input asp-for="DateAndTime" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label asp-for="AuthorId" class="form-label">Author's name</label>
+        <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.Authors" required></select>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </div>
+</form>
