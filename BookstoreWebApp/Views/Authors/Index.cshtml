@@ -1,0 +1,41 @@
+﻿@using BookstoreWebApp.Models.Authors;
+@model IEnumerable<AuthorsIndexViewModel>
+
+@if(User.IsInRole("Admin"))
+{
+    <h1>List of all authors</h1>
+    <p>
+        <a class="btn btn-info" asp-action="Create">Add Author</a>
+    </p>
+}
+    <table>
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Nationality</th>
+                <th>Biography</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.FullName</td>
+                    <td>@c.Nationality</td>
+                    <td>@c.Biography</td>
+                    <td><img src="@c.ImageUrl" width="400" height="200" /></td>
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <td>
+                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@c.Id">Edit</a>
+                            <form asp-action="Delete" method="post" asp-route-id="@c.Id">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+

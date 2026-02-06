@@ -77,6 +77,10 @@
       "PackagePath": "staticwebassets\\img\\nav-underline.png"
     },
     {
+      "Id": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\img\\noPfp.jpg",
+      "PackagePath": "staticwebassets\\img\\noPfp.jpg"
+    },
+    {
       "Id": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\img\\popular-1.jpg",
       "PackagePath": "staticwebassets\\img\\popular-1.jpg"
     },

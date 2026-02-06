@@ -1,12 +1,13 @@
 ﻿using BookstoreProjectData.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BookstoreWebApp.Models.Books
 {
     public class BooksEditViewModel
     {
-        [Key]
+        [Required]
         public Guid Id { get; set; }
 
         [Required]
@@ -26,20 +27,13 @@ namespace BookstoreWebApp.Models.Books
         public string Synopsis { get; set; } = null!;
 
 
-        [ForeignKey(nameof(Author))]
+        [Required]
         public Guid AuthorId { get; set; }
-        public Author Author { get; set; } = null!;
 
-
-        [ForeignKey(nameof(Genre))]
+        [Required]
         public Guid GenreId { get; set; }
-        public Genre Genre { get; set; } = null!;
-
-
-        [ForeignKey(nameof(Promotion))]
+        
         public Guid? PromotionId { get; set; }
-        public Promotion? Promotion { get; set; }
 
-        public List<Publisher_Book> Publishers_Books { get; set; } = new List<Publisher_Book>();
     }
 }

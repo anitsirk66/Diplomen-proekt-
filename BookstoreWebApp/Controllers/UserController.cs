@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using System.Net.WebSockets;
 
 namespace BookstoreWebApp.Controllers
 {
+    [AllowAnonymous]
     public class UserController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -22,7 +24,7 @@ namespace BookstoreWebApp.Controllers
             roleManager = _roleManager;
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SeedRoles()
         {
             string[] roles = { "Admin", "Client" };
@@ -36,41 +38,38 @@ namespace BookstoreWebApp.Controllers
             return Content("Roles seeded (created if mising).");
         }
 
-        [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Register()
+        public IActionResult Register()
         {
-            var model = new UserRegisterViewModel
-            {
-                Roles = new List<string> { "Admin", "Client" }
-            };
+            var model = new UserRegisterViewModel();
 
             return View(model);
         }
 
-        [AllowAnonymous]
         [HttpPost]
+
         public async Task<IActionResult> Register(UserRegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var user = new User()
+
+            var client = new User()
             {
                 Email = model.Email,
                 UserName = model.UserName
             };
 
-            var result = await userManager.CreateAsync(user, model.Password);
+            var result = await userManager.CreateAsync(client, model.Password);
 
             if (result.Succeeded)
             {
-                if (model.Role == "Admin" || model.Role == "Client") {
-                    await userManager.AddToRoleAsync(user, model.Role); }
+                await userManager.AddToRoleAsync(client, "Client");
 
-                return RedirectToAction("Login", "User");
+                return RedirectToAction("Home", "Index");
             }
+
             foreach(var item in result.Errors)
             {
                 ModelState.AddModelError("", item.Description);
@@ -78,25 +77,96 @@ namespace BookstoreWebApp.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
+
         [HttpGet]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Logout()
         {
-            return View(new UserLoginViewModel());  
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        } 
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View(new UserLoginViewModel());
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginViewModel model)
         {
-            if(!ModelState.IsValid)
+            var check = ModelState.IsValid;
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure:false);
+            var user = await userManager.FindByEmailAsync(model.Email);
+            var result = await signInManager.PasswordSignInAsync(
+                user.UserName, 
+                model.Password, 
+                model.RememberMe, 
+                false);
 
-            return View(model);
+            if(!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Невалиден имейл или парола");
+                return View(model);
+            }
+
+            if(await userManager.IsInRoleAsync(user, "Admin"))
+            {
+                TempData["AdminLoggedInMessage"] = "Admin logged in!";
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index");
         }
+
+        [Authorize(Roles ="Admin")]
+        [HttpGet]
+        public IActionResult CreateAdmin()
+        {
+            var viewmodel = new UserCreateAdminViewModel();
+            var allRoles = roleManager.Roles.ToList();
+            viewmodel.RolesList = allRoles.Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = s.Name
+            });
+
+            return View(viewmodel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateAdmin(UserCreateAdminViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var admin = new User()
+            {
+                Email = model.Email,
+                UserName = model.UserName
+            };
+
+            var result = await userManager.CreateAsync(admin, model.Password);
+
+            if(result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(admin, "Admin");
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var item in result.Errors)
+            {
+                ModelState.AddModelError("", item.Description);
+            }
+            return View(model);
+
+        }
+
     }
 }

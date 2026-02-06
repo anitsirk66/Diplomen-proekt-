@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace BookstoreProjectData.Entities
 {
-    //tozi si e moq
     public class Author
     {
         [Key]
         public Guid Id { get; set; }
-
+        
         [Required]
         [StringLength(50)]
         public string FullName { get; set; } = null!;
@@ -27,5 +26,7 @@ namespace BookstoreProjectData.Entities
 
         public List<Book> Books { get; set;} = new List<Book>();
         public List<Event> Events { get; set;} = new List<Event>();
+
+        //photo
     }
 }

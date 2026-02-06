@@ -1,7 +1,9 @@
 ﻿//using AspNetCore;
 using BookstoreProjectData;
 using BookstoreProjectData.Entities;
+using BookstoreWebApp.Models.Books;
 using BookstoreWebApp.Models.Events;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +20,7 @@ namespace BookstoreWebApp.Controllers
             context = _context;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -31,7 +34,8 @@ namespace BookstoreWebApp.Controllers
             
             return View(events);
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -41,6 +45,7 @@ namespace BookstoreWebApp.Controllers
             return View(new EventsCreateViewModel()); //or authors?
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(EventsCreateViewModel model)
         {
@@ -62,6 +67,25 @@ namespace BookstoreWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var model = await context.Events
+                .Where(e => e.Id == id)
+                .Select(b => new EventsDeleteViewModel
+                {
+                    Id = b.Id
+                })
+                .FirstOrDefaultAsync();
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+        }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(EventsDeleteViewModel model)
         {
@@ -78,6 +102,7 @@ namespace BookstoreWebApp.Controllers
             return RedirectToAction("Index"); 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -94,6 +119,8 @@ namespace BookstoreWebApp.Controllers
 
             return View(model); 
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult>Edit(EventsIndexViewModel model)
         {

@@ -23,8 +23,8 @@ namespace BookstoreWebApp.Models.User
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; } = null!;
 
-        [Required]
-        public string Role {  get; set; }
-        public List<string> Roles { get; set; }
+        //[Required]
+        //public string Role {  get; set; }
+        //public List<string> Roles { get; set; }
     }
 }

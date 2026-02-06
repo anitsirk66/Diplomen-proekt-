@@ -48,7 +48,5 @@ namespace BookstoreProjectData.Entities
         public List<Order_Book> Orders_Books { get; set; } = new List<Order_Book>();
         public List<Publisher_Book> Publishers_Books { get; set; } = new List<Publisher_Book>();
         public List<Review> Reviews { get; set; } = new List<Review>();
-
-
     }
 }

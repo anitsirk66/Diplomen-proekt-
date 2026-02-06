@@ -30,6 +30,10 @@ body {
     padding: 15px 15px 20px 30px;
 }
 .tm-welcome-section {
-    background: #FC466B;
+    background: radial-gradient(circle, #FC466B, #FC8646);
     text-align: center;
+}
+.tm-top-header {
+    background-color: #FC466B;
+    color: white;
 }

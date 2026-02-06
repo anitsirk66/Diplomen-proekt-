@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "o++vJfhq7V5gzibbgj9ccIkBsMTbJbgVTU9I+MpVZ0w=",
+  "Hash": "wK6rssZtSJjq0CxqRTXeuVFRTMx3KCspm4rRR7W5SKI=",
   "Source": "BookstoreWebApp",
   "BasePath": "_content/BookstoreWebApp",
   "Mode": "Default",
@@ -1535,6 +1535,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\nav-underline.png"
+    },
+    {
+      "Identity": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\img\\noPfp.jpg",
+      "SourceId": "BookstoreWebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\",
+      "BasePath": "_content/BookstoreWebApp",
+      "RelativePath": "img/noPfp.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\noPfp.jpg"
     },
     {
       "Identity": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\img\\popular-1.jpg",

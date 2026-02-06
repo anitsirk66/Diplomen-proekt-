@@ -1,4 +1,6 @@
 using BookstoreWebApp.Models;
+using BookstoreWebApp.Models.Books;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -14,6 +16,13 @@ namespace BookstoreWebApp.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Details(Guid id)
         {
             return View();
         }

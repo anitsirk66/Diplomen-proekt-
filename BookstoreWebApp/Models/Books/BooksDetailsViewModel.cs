@@ -1,4 +1,5 @@
 ﻿using BookstoreProjectData.Entities;
+using BookstoreWebApp.Models.Reviews;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,20 +7,21 @@ namespace BookstoreWebApp.Models.Books
 {
     public class BooksDetailsViewModel
     {
-        [Key]
         public Guid Id { get; set; }
 
-        [Required]
-        [MinLength(30), MaxLength(300)]
+        public string Title { get; set; } = null!;
+
         public string Synopsis { get; set; } = null!;
 
-        [ForeignKey(nameof(Genre))]
-        public Guid GenreId { get; set; }
-        public Genre Genre { get; set; } = null!;
+        public string GenreName { get; set; } = null!;
 
+        public decimal Price { get; set; }
 
-        public List<Order_Book> Orders_Books { get; set; } = new List<Order_Book>();
-        public List<Publisher_Book> Publishers_Books { get; set; } = new List<Publisher_Book>();
-        public List<Review> Reviews { get; set; } = new List<Review>();
+        public string CoverImageUrl { get; set; } = null!;
+
+        public string AuthorName { get; set; } = null!;
+        public decimal PromotionPercent { get; set; }
+
+        public List<ReviewIndexViewModel> Reviews { get; set; } = new List<ReviewIndexViewModel>();
     }
 }

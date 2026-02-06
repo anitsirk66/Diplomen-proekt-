@@ -13,8 +13,11 @@
                 <h1 class="gold-text tm-welcome-header-2">Pink Sunrise</h1>
                 <p class="gray-text tm-welcome-description" style="color: black; font-size: 12px;">Paragraph with info about author-reader events</p>
                 <a href="#main" class="tm-more-button tm-more-button-welcome" style="display: none;">Read More</a>
-            <p><a asp-controller ="Events" asp-action="Create" class="btn btn-warning">Add event</a></p>
-            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <p><a asp-controller ="Events" asp-action="Create" class="btn btn-info">Add event</a></p>
+            }
+        </div>
             
         </div>
 </section>
@@ -26,7 +29,6 @@
                         <div class="tm-hr-container"><hr class="tm-hr"></div>
                     </div>
                     <div class="col-lg-12 tm-popular-items-container">
-                   
                         <div class="tm-popular-item">
                             <img src="img/popular-1.jpg" alt="Popular" class="tm-popular-item-img">
                             <div class="tm-popular-item-description">
@@ -35,8 +37,17 @@
                                 </h3>
                                 <hr class="tm-popular-item-hr">
                                 <p>DateAndTime</p>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div>
+                                        <a asp-controller="Events" asp-action="Edit" class="btn btn-warning" asp-route-id="Id">Edit this event</a>
+                                        <form asp-action="Delete" asp-controller="Events" method="post" asp-route-id="Id">
+                                            <button type="submit" class="btn btn-danger">Delete this event</button>
+                                        </form>
+                                    </div>
+                                }
                                 <div class="order-now-container">
-                                    <a href="#" class="order-now-link tm-handwriting-font">Link to event</a>
+                                        <a href="#" class="order-now-link tm-handwriting-font">Link to event</a>
                                 </div>
                             </div>
                         </div>
