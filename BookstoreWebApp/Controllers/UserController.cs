@@ -10,7 +10,6 @@ using System.Net.WebSockets;
 
 namespace BookstoreWebApp.Controllers
 {
-    [AllowAnonymous]
     public class UserController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -38,6 +37,7 @@ namespace BookstoreWebApp.Controllers
             return Content("Roles seeded (created if mising).");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
@@ -46,6 +46,7 @@ namespace BookstoreWebApp.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
 
         public async Task<IActionResult> Register(UserRegisterViewModel model)
@@ -55,18 +56,20 @@ namespace BookstoreWebApp.Controllers
                 return View(model);
             }
 
-            var client = new User()
+            var user = new User()
             {
                 Email = model.Email,
                 UserName = model.UserName
             };
 
-            var result = await userManager.CreateAsync(client, model.Password);
+            var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(client, "Client");
-
+                if(model.Role == "Client" || model.Role == "Admin")
+                {
+                    await userManager.AddToRoleAsync(user, model.Role);
+                }
                 return RedirectToAction("Home", "Index");
             }
 
@@ -77,35 +80,45 @@ namespace BookstoreWebApp.Controllers
             return View(model);
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
-        } 
+        }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
             return View(new UserLoginViewModel());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginViewModel model)
         {
             var check = ModelState.IsValid;
             if (!ModelState.IsValid)
             {
+                TempData["ErrorMessage"] = "Invalid user data";
+                ModelState.AddModelError("", "Input data is not valid");
                 return View(model);
             }
 
             var user = await userManager.FindByEmailAsync(model.Email);
+            if (user == null) 
+            {
+                ModelState.AddModelError("", "User is not found"); 
+                return View(model); 
+            }
+
             var result = await signInManager.PasswordSignInAsync(
                 user.UserName, 
                 model.Password, 
                 model.RememberMe, 
-                false);
+                lockoutOnFailure: false);
 
             if(!result.Succeeded)
             {
@@ -113,15 +126,11 @@ namespace BookstoreWebApp.Controllers
                 return View(model);
             }
 
-            if(await userManager.IsInRoleAsync(user, "Admin"))
-            {
-                TempData["AdminLoggedInMessage"] = "Admin logged in!";
-                return RedirectToAction("Index", "Home");
-            }
-            return RedirectToAction("Index");
+            TempData["SuccessMessage"] = "Logged in!";
+            return View(model);
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult CreateAdmin()
         {
@@ -135,7 +144,7 @@ namespace BookstoreWebApp.Controllers
 
             return View(viewmodel);
         }
-
+        
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAdmin(UserCreateAdminViewModel model)
@@ -147,13 +156,13 @@ namespace BookstoreWebApp.Controllers
 
             var admin = new User()
             {
-                Email = model.Email,
+                Email = "kristina@gmail.com",
                 UserName = model.UserName
             };
 
             var result = await userManager.CreateAsync(admin, model.Password);
 
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(admin, "Admin");
 
@@ -166,7 +175,9 @@ namespace BookstoreWebApp.Controllers
             }
             return View(model);
 
+
         }
+
 
     }
 }

@@ -51,8 +51,16 @@ namespace BookstoreWebApp
 
             using (var scope = app.Services.CreateScope())
             {
-                var rolemanager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                await IdentitySeeder.SeedRolesAsync(rolemanager);
+                var services = scope.ServiceProvider;
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                await IdentitySeeder.SeedRolesAsync(roleManager);
+            }
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                //var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                //await AdminSeeder.SeedAdmin(roleManager, userManager);
             }
 
             if (app.Environment.IsDevelopment())
@@ -80,5 +88,6 @@ namespace BookstoreWebApp
             
             app.Run();
         }
+
     }
 }

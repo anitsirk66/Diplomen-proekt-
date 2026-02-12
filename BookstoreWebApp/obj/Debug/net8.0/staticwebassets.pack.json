@@ -141,6 +141,10 @@
       "PackagePath": "staticwebassets\\img\\vertical-menu-bg.png"
     },
     {
+      "Id": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
+    },
+    {
       "Id": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\js\\jquery-1.11.2.min.js",
       "PackagePath": "staticwebassets\\js\\jquery-1.11.2.min.js"
     },

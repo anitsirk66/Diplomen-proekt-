@@ -33,7 +33,13 @@ body {
     background: radial-gradient(circle, #FC466B, #FC8646);
     text-align: center;
 }
-.tm-top-header {
-    background-color: #FC466B;
+.tm-top-header, .navbar {
+    background-color: #FC466B!important;
     color: white;
+}
+.tm-welcome-content {
+    margin: 0;
+    max-width: 100%;
+    margin-top: 0;
+    padding: 150px 0 250px 0;
 }

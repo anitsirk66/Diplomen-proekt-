@@ -24,9 +24,3 @@
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
-@if (User.IsInRole("Admin"))
-{
-    <a asp-action="CreateAdmin" method="post" class=" btn btn-primary">
-        Create Admin
-    </a>
-}

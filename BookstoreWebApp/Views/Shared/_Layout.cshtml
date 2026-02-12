@@ -11,6 +11,33 @@
     <link rel="stylesheet" href="~/BookstoreWebApp.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/booklogo.png" alt="Logo" class="tm-site-logo" width="50" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Events" asp-action="Index">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Books</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text"> <partial name="_LoginPartial" /> </span>
+                </div>
+            </div>
+        </nav>
+    </header>
     <header style="display:none;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -39,7 +66,7 @@
             </div>
         </nav>
     </header>
-    <header>
+    <header style="display:none">
         <div class="tm-top-header">
             <div class="container">
                 <div class="row">
@@ -75,6 +102,35 @@
             </div>
         </div>
     </header>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div>
+            <div class="alert alert-success alert-dismissible fade show">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div>
+            <div class="alert alert-danger alert-dismissible fade show">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    }
+    @if (TempData["WarningMessage"] != null)
+    {
+        <div>
+            <div class="alert alert-warning alert-dismissible fade show">
+                @TempData["WarningMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    }
+
     <div class="">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -123,6 +179,7 @@
             </div>
         </div>
     </footer> <!-- Footer content-->
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/templatemo-script.js"></script>
     <script src="~/js/jquery-1.11.2.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

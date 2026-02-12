@@ -13,13 +13,7 @@
                 <p style="display:none;" class="gray-text tm-welcome-description">This template is a mobile-friendly responsive <span class="gold-text">Bootstrap v3.3.5</span> layout by <span class="gold-text">templatemo</span>. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculusnec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>
                 <a class="tm-more-button tm-more-button-welcome" asp-action="Details" asp-controller="Home" method="post">About us</a>
             </div>
-        @if (TempData["AdminLoggedInMessage"] != null)
-        {
-            <div>
-                <p>@TempData["AdminLoggedInMessage"]</p>
-                <a asp-controller="Home" asp-action="Index" class="btn btn-success">Go back to home</a>
-            </div>
-        }
+       
         <img style="display: none;" src="img/sunrise.jpg" alt="Table Set" class="tm-table-set img-responsive">
         </div>
     </section>

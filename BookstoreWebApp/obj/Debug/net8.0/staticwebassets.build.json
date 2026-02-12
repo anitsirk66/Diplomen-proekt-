@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wK6rssZtSJjq0CxqRTXeuVFRTMx3KCspm4rRR7W5SKI=",
+  "Hash": "0IxFnUa4/Y2rKuyAp1c07bYIcVbtjDwSCPoNvGYZwL4=",
   "Source": "BookstoreWebApp",
   "BasePath": "_content/BookstoreWebApp",
   "Mode": "Default",
@@ -1839,6 +1839,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\vertical-menu-bg.png"
+    },
+    {
+      "Identity": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "SourceId": "BookstoreWebApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\",
+      "BasePath": "_content/BookstoreWebApp",
+      "RelativePath": "js/bootstrap.bundle.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
     },
     {
       "Identity": "C:\\Users\\Student17\\Documents\\Student17_12B\\Diplomen-proekt\\BookstoreWebApp\\wwwroot\\js\\jquery-1.11.2.min.js",

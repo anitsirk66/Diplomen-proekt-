@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookstoreProjectData
 {
-    public class BookstoreContext: IdentityDbContext<User>
+    public class BookstoreContext : IdentityDbContext<User>
     {
 
         public BookstoreContext(DbContextOptions<BookstoreContext> options) : base(options) { }
@@ -173,7 +173,16 @@ namespace BookstoreProjectData
 
             });
 
+            //    modelBuilder.Entity<Author>().HasData(
+            //        new Author
+            //        {
+            //            FullName = "Anna Dodd",
+            //            Nationality = "american",
+            //            Biography = "dddddddddddddddddddddddddddd"
+            //        }
+            //        );
         }
 
     }
+    
 }
